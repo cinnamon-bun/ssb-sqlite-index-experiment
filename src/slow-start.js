@@ -165,7 +165,7 @@ cooler.open().then((ssb) => {
 
   // Start the stream!
   pull(
-      ssb.createLogStream({limit: 1000}),
+      ssb.createLogStream({limit: 100000}),
       pull.drain(onEach, onDone)
   );
 });
