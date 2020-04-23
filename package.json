@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "start": "node build/index-to-sqlite.js",
+    "clean": "rm build/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -11,15 +14,21 @@
   "dependencies": {
     "@fraction/flotilla": "^4.0.1",
     "better-sqlite3": "^6.0.1",
+    "chalk": "^4.0.0",
     "debug": "^4.1.1",
     "lodash": "^4.17.15",
     "pull-stream": "^3.6.14",
     "ssb-client": "^4.9.0",
     "ssb-config": "^3.4.4",
     "ssb-tangle": "^1.0.1",
+    "tslib": "^1.11.1",
     "util": "^0.12.2"
   },
   "devDependencies": {
-    "@types/pull-stream": "^3.6.0"
+    "@types/better-sqlite3": "^5.4.0",
+    "@types/debug": "^4.1.5",
+    "@types/node": "^13.13.2",
+    "@types/pull-stream": "^3.6.0",
+    "typescript": "^3.8.3"
   }
 }

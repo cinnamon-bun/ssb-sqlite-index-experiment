@@ -17,6 +17,11 @@ class MapSet extends Map {
 
     return this.get(key).add(item);
   }
+  gett(key) {
+    let result = this.get(key);
+    if (result === undefined) { return new Set(); }
+    return result;
+  }
 }
 
 const messagesByType = new MapSet();
@@ -133,7 +138,7 @@ cooler.open().then((ssb) => {
       name: nameByAuthor.get(ssb.id),
       description: descriptionByAuthor.get(ssb.id),
       image: imageByAuthor.get(ssb.id),
-      notifications: notificationsForAuthor.get(ssb.id).size,
+      notifications: notificationsForAuthor.gett(ssb.id).size,
     });
 
     console.log(
