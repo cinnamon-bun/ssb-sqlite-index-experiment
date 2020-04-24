@@ -1,4 +1,5 @@
 
+/*
 type MsgKey = string;  // '%...'
 type AuthorKey = string;  // '@...'
 type BlobRef = string;  // '&...'
@@ -65,6 +66,7 @@ type Vote = {
     channel: string,
     vote: any,   //?
 }
+*/
 
 
 
