@@ -48,13 +48,27 @@ CREATE TABLE IF NOT EXISTS msgs (
     timestampReceived NUMBER,
     timestampAsserted NUMBER
 );
+CREATE TABLE IF NOT EXISTS authors (
+    key TEXT NOT NULL PRIMARY KEY,
+    name TEXT,
+    description TEXT,
+    image TEXT
+);
 ```
-Example row.  Note the `content` field is a string holding encoded JSON.
+Example row from `msgs`.  Note the `content` field is a string holding encoded JSON.
 ```
-              key = %ox6s7+BrBiyKWthGxQ/iu4NgvGXv2f1P63/S7m+bNKc=.sha256
-  previousMessage = %d6Jk7mwiXdl9+JaEhCcr+2q1ta19YiJGnOcNPqeuJVo=.sha256
-           author = @fBS90Djngwl/SlCh/20G7piSC064Qz2hBBxbfnbyM+Y=.ed25519
-          content = {"type":"pub","address":{"host":"ssb.hypersignal.xyz","port":8008,"key":"@XRg7pXoQqsWDDk4dmgvSWHUqzwS6BmqMo4IdbMKPjWA=.ed25519"}}
+              key = %ox6s...............redacted................=.sha256
+  previousMessage = %d6Jk.......................................=.sha256
+           author = @fBS9.......................................=.ed25519
+          content = {"type":"pub","address":{"host":"ssb.hypersignal.xyz","port":8008,"key":"@XRg7pXo....................................=.ed25519"}}
 timestampReceived = 1505676293843
 timestampAsserted = 1505676293841
+```
+
+Example row from `authors`.
+```
+        key = @fBS9..............redacted.................=.ed25519
+       name = cinnamon
+description = blah blah blah description redacted
+      image = &D7Qt.......................................=.sha256
 ```
