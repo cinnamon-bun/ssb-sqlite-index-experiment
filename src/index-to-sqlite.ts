@@ -37,8 +37,14 @@ let main = async () => {
             content TEXT,
             timestampReceived NUMBER,
             timestampAsserted NUMBER
-            -- value TEXT,
-            -- timestamp NUMBER
+        );
+    `).run();
+    db.prepare(`
+        CREATE TABLE IF NOT EXISTS authors (
+            key TEXT NOT NULL PRIMARY KEY,
+            name TEXT,
+            description TEXT,
+            image TEXT
         );
     `).run();
 
@@ -50,7 +56,7 @@ let main = async () => {
     });
 
     // 
-    let insertStatement = db.prepare(`
+    let insertMsgSt = db.prepare(`
         INSERT INTO msgs (
             key,
             previousMessage,
@@ -67,11 +73,24 @@ let main = async () => {
             ? -- timestampAsserted
         );
     `);
+    let insertAuthorSt = db.prepare(`
+        INSERT OR REPLACE INTO authors (
+            key,
+            name,
+            description,
+            image
+        ) VALUES (
+            ?, -- key
+            ?, -- name
+            ?, -- description
+            ? -- image
+        );
+    `);
     let beginSt = db.prepare(`BEGIN IMMEDIATE;`);
     let commitSt = db.prepare(`COMMIT;`);
 
     let ingestMsg = (msg : SSBMessage) : void => {
-        insertStatement.run(
+        insertMsgSt.run(
             msg.key,
             msg.value.previous,
             msg.value.author,
@@ -82,6 +101,34 @@ let main = async () => {
             //JSON.stringify(msg.value),
             //msg.timestamp
         );
+        if (msg.value.content.type === 'about') {
+            let content = msg.value.content;
+            if (typeof content.about === 'string') {
+                let description : string = '';
+                if (typeof content.description === 'string') {
+                    description = content.description;
+                }
+
+                let img : string = '';
+                if (content.image !== null && typeof content.image === 'object' && typeof content.image.link === 'string') {
+                    img = content.image.link;
+                } else if (typeof content.image === 'string') {
+                    img = content.image;
+                }
+
+                try {
+                    insertAuthorSt.run(
+                        content.about,  // key
+                        content.name || '',
+                        description,
+                        img
+                    )
+                } catch (e) {
+                    log('weird about message:');
+                    log(content);
+                }
+            }
+        }
     }
 
     // go

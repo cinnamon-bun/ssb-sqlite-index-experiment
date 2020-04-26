@@ -29,9 +29,18 @@ export type Content =
 
 export type About = {
     type: 'about',
-    about: AuthorKey | MsgKey,
-    image?: BlobRef,
-    attendee: any, // ?
+    about?: AuthorKey | MsgKey,
+    mentions?: any;
+    image?: BlobRef | {
+        link: BlobRef,
+        size: number,
+        type: string,  // 'image/png',
+        width: number,
+        height: number,
+    }
+    name?: string,
+    description?: string,
+    attendee?: any, // ?
 };
 
 export type Channel = {

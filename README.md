@@ -10,7 +10,7 @@ Input file:
 * 1 million messages as newline-delimited JSON, 740 mb
 
 Output file:
-* sqlite file, 645 mb
+* sqlite file, 645 mb on disk
 
 Timings on a 2013 iMac.  Experimenting with different numbers of messages to insert in each transaction.
 
