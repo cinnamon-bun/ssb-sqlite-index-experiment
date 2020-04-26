@@ -57,7 +57,7 @@ let main = async () => {
 
     // 
     let insertMsgSt = db.prepare(`
-        INSERT INTO msgs (
+        INSERT OR REPLACE INTO msgs (
             key,
             previousMessage,
             author,
@@ -72,6 +72,9 @@ let main = async () => {
             ?, -- timestampReceived
             ? -- timestampAsserted
         );
+    `);
+    let getAuthorSt = db.prepare(`
+        SELECT * FROM authors WHERE key = ?;
     `);
     let insertAuthorSt = db.prepare(`
         INSERT OR REPLACE INTO authors (
@@ -90,6 +93,7 @@ let main = async () => {
     let commitSt = db.prepare(`COMMIT;`);
 
     let ingestMsg = (msg : SSBMessage) : void => {
+        // msgs table
         insertMsgSt.run(
             msg.key,
             msg.value.previous,
@@ -97,35 +101,54 @@ let main = async () => {
             JSON.stringify(msg.value.content),
             msg.timestamp,  // received
             msg.value.timestamp,  // asserted
-            //msg.key,
-            //JSON.stringify(msg.value),
-            //msg.timestamp
         );
+
+        // authors table
         if (msg.value.content.type === 'about') {
             let content = msg.value.content;
             if (typeof content.about === 'string') {
-                let description : string = '';
-                if (typeof content.description === 'string') {
-                    description = content.description;
+                // first fetch existing about row, if there is one
+                let result = getAuthorSt.get(content.about);
+                // otherwise start with a default
+                if (result === undefined) {
+                    result = {
+                        key: content.about,
+                        name: '',
+                        description: '',
+                        image: ''
+                    };
                 }
 
-                let img : string = '';
-                if (content.image !== null && typeof content.image === 'object' && typeof content.image.link === 'string') {
-                    img = content.image.link;
-                } else if (typeof content.image === 'string') {
-                    img = content.image;
+                // update the row with new values
+                if (typeof content.name === 'string' && content.name !== '') {
+                    result.name = content.name;
                 }
 
+                if (typeof content.description === 'string' && content.description !== '') {
+                    result.description = content.description;
+                }
+
+                if (content.image !== null && typeof content.image === 'object' && typeof content.image.link === 'string' && content.image.link !== '') {
+                    result.image = content.image.link;
+                } else if (typeof content.image === 'string' && content.image !== '') {
+                    result.image = content.image;
+                }
+
+                // insert-or-replace it back to the database
                 try {
                     insertAuthorSt.run(
-                        content.about,  // key
-                        content.name || '',
-                        description,
-                        img
+                        result.key,
+                        result.name,
+                        result.description,
+                        result.image
                     )
                 } catch (e) {
                     log('weird about message:');
                     log(content);
+                    log(e)
+                    log('-----------------');
+                    log('-----------------');
+                    log('-----------------');
                 }
             }
         }
@@ -158,80 +181,17 @@ let main = async () => {
     }
     commitSt.run();
     let endTime = Date.now();
+
+    let numAuthors = db.prepare('SELECT COUNT(*) as count FROM authors;').get().count;
+
     let seconds = (endTime - startTime) / 1000;
     //log();
     log(`commit transaction every ${commitEvery} messages`);
+    log(`${ii} total messages`);
     log(`${Math.round(seconds*10)/10} seconds`);
-    log(`${ii} messages`);
     log(`${Math.round(ii/seconds*10)/10} messages per second`);
     log(`${Math.round(seconds/ii*1000*1000)/1000} ms per message`);
-
-
-
-    /*
-    log('instantiating cooler');
-    const cooler = coolerModule({offline: true});
-    log('...instantiated');
-
-    log('opening cooler');
-    let ssb = await cooler.open();
-    log('...opened');
-
-    let LIMIT = 1000;
-    let startTime = Date.now();
-    let numMsg = 0;
-    let keys = [];  // for memory-array
-    let insertStatement : sqlite.Statement | null = null;
-    if (db) {
-        insertStatement = db.prepare(`
-            INSERT INTO msgs (key) VALUES (?);
-        `);
-    }
-
-    let onEach = (msg : any) : void => {
-        if (numMsg % 10000 === 0) {
-            log(`onEach: ${numMsg} / ${LIMIT}`);
-        }
-        numMsg += 1;
-
-        //log('-------------------------------');
-        //log(msg);
-
-        if (insertStatement) {
-            insertStatement.run(msg.key);
-        } else if (MODE === 'memory-array') {
-            keys.push(msg.key);
-        }
-    }
-
-    let onDone = (err : any) : void => {
-        let endTime = Date.now();
-        let seconds = (endTime - startTime) / 1000;
-        log(`onDone.  ${seconds} seconds.  ${numMsg} messages.`);
-        log(`${numMsg / seconds} msgs / second`);
-        log(`${seconds / numMsg * 1000} ms / msg`);
-        if (err) throw err;
-        log('onDone: closing ssb...')
-        ssb.close();
-        log('...closed');
-
-        let used : any = process.memoryUsage();
-        for (let key in used) {
-            console.log(
-                `${key} ${Math.round((used[key] / 1024 / 1024) * 100) / 100} MB`
-            );
-        }
-
-        log('MODE: ' + MODE);
-        log('===================== DONE ==================');
-    }
-
-    log('starting stream');
-    pull(
-        ssb.createLogStream({ limit: LIMIT }),
-        pull.drain(onEach, onDone)
-    );
-    */
+    log(`${numAuthors} authors in table`);
 }
 main();
 
