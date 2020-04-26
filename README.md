@@ -2,7 +2,7 @@
 
 Is it practical to use sqlite as an index for SSB messages?
 
-With the help of Christian Bundy!  See [ssb-sqlite](https://github.com/christianbundy/ssb-sqlite) for his take on this.
+With the help of Christian Bundy!  See [ssb-sqlite](https://github.com/christianbundy/ssb-sqlite) for his take on this.  He used an ORM (sequelize), I used raw SQL.
 
 ## Benchmark
 
