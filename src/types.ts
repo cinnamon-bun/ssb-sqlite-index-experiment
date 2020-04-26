@@ -1,24 +1,25 @@
 
-/*
-type MsgKey = string;  // '%...'
-type AuthorKey = string;  // '@...'
-type BlobRef = string;  // '&...'
+export type MsgKey = string;  // '%...'
+export type AuthorKey = string;  // '@...'
+export type BlobRef = string;  // '&...'
 
-type Outer = {
+export type SSBMessage = {
     key: MsgKey,
-    value: {
-        previous: MsgKey,
-        author: AuthorKey,
-        sequence: number,
-        timestamp: number,  // author's asserted timestamp
-        hash: 'sha256',
-        content: Content,
-        signature: string,
-    }
+    value: SSBValue,
     timestamp: number,   // when we received it
-}
+};
 
-type Content =
+export type SSBValue = {
+    previous: MsgKey,
+    author: AuthorKey,
+    sequence: number,
+    timestamp: number,  // author's asserted timestamp
+    hash: 'sha256',
+    content: Content,
+    signature: string,
+};
+
+export type Content =
       About
     | Channel
     | Contact
@@ -26,27 +27,27 @@ type Content =
     | Pub
     | Vote;
 
-type About = {
+export type About = {
     type: 'about',
     about: AuthorKey | MsgKey,
     image?: BlobRef,
     attendee: any, // ?
-}
+};
 
-type Channel = {
+export type Channel = {
     type: 'channel',
     channel: string,
     subscribed: boolean,
-}
+};
 
-type Contact = {
+export type Contact = {
     type: 'contact',
     contact: AuthorKey,
     following: boolean,
     pub?: boolean,
-}
+};
 
-type Post = {
+export type Post = {
     type: 'post',
     root?: MsgKey,
     branch?: MsgKey,
@@ -54,19 +55,18 @@ type Post = {
     recps: null,  //?
     text: string,
     mentions: [],   // ?
-}
+};
 
-type Pub = {
+export type Pub = {
     type: 'pub',
     address: any,  // ?
-}
+};
 
-type Vote = {
+export type Vote = {
     type: 'vote',
     channel: string,
     vote: any,   //?
-}
-*/
+};
 
 
 

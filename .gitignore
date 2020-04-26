@@ -5,3 +5,7 @@ node_modules/
 build/
 .nyc_output/
 coverage/
+ignore/
+db.sqlite
+db.sqlite-journal
+log.jsonl
