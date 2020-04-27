@@ -32,7 +32,7 @@ class Histogram {
             return a[0] > b[0] ? 1 : -1;
         }
         let sortNum = (a : [string, number], b : [string, number]) : number => {
-            if (a[1] === b[1]) { return 0; }
+            if (a[1] === b[1]) { return sortAlpha(a, b); }
             return a[1] < b[1] ? 1 : -1;
         }
         let sortFn = reportStyle === 'alpha' ? sortAlpha : sortNum;
@@ -78,8 +78,10 @@ let main = async () => {
     let sequenceH = new Histogram('typeof value.sequence');
     let assertedTimestampH = new Histogram('typeof value.timestamp (asserted)');
     let hashH = new Histogram('value.hash');
+    let contentH = new Histogram('typeof value.content');
     let signatureH = new Histogram('typeof value.signature');
 
+    let typeoTypeH = new Histogram('typeof value.content.type');
     let typeH = new Histogram('value.content.type');
 
     let ii = 0;
@@ -95,8 +97,10 @@ let main = async () => {
         sequenceH.add(getTypeo(msg.value, 'sequence'));
         assertedTimestampH.add(getTypeo(msg.value, 'timestamp'));
         hashH.add(JSON.stringify(msg.value?.hash));
+        contentH.add(getTypeo(msg.value, 'content'));
         signatureH.add(getTypeo(msg.value, 'signature'));
 
+        typeoTypeH.add(getTypeo(msg.value?.content, 'type'));
         typeH.add(JSON.stringify(msg.value?.content?.type));
 
         ii++;
@@ -111,8 +115,10 @@ let main = async () => {
     console.log(sequenceH.reportBy('num', 0));
     console.log(assertedTimestampH.reportBy('num', 0));
     console.log(hashH.reportBy('num', 0));
+    console.log(contentH.reportBy('num', 0));
     console.log(signatureH.reportBy('num', 0));
 
-    console.log(typeH.reportBy('num', 0.005 / 100));
+    console.log(typeoTypeH.reportBy('num', 0));
+    console.log(typeH.reportBy('num', 0)); //0.005 / 100));
 }
 main();

@@ -31,9 +31,19 @@
  1168044  total
  1168044     100 %: "sha256"
 
+== typeof value.content (by num) ==
+ 1168044  total
+ 1054112      90 %: object
+  113932      10 %: string
+
 == typeof value.signature (by num) ==
  1168044  total
  1168044     100 %: string
+
+== typeof value.content.type (by num) ==
+ 1168044  total
+ 1054112      90 %: string
+  113932      10 %: parent-is-not-object
 
 == value.content.type (by num) ==
  1168044  total
@@ -69,12 +79,12 @@
      247       0 %: "mutual/credit"
      236       0 %: "ferment/like"
      217       0 %: "talenet-idea-association"
-     170       0 %: "ssb_chess_move"
      170       0 %: "libd"
+     170       0 %: "ssb_chess_move"
      149       0 %: "ssb-dns"
      146       0 %: "carson"
-     136       0 %: "poll"
      136       0 %: "collabthings-list"
+     136       0 %: "poll"
      130       0 %: "queue"
      123       0 %: "talenet-idea-hat"
      121       0 %: "bookclub"
@@ -90,4 +100,56 @@
       70       0 %: "meta-query"
       66       0 %: "issue-edit"
       62       0 %: "bar"
+      55       0 %: "peer-invite"
+      54       0 %: "talenet-idea-create"
+      49       0 %: "ssb-igo"
+      48       0 %: "mutual/account"
+      46       0 %: "macaco_maluco-sombrio-tombstone"
+      43       0 %: "tamaki:publication"
+      42       0 %: "micro"
+      42       0 %: "poll-resolution"
+      41       0 %: "whats-dinner:newItem"
+      40       0 %: "edit"
+      40       0 %: "macaco_maluco-sombrio-score"
+      40       0 %: "ssb_chess_invite"
+      39       0 %: "ssb_chess_invite_accept"
+      38       0 %: "chess_chat"
+      36       0 %: "address"
+      36       0 %: "flag"
+      35       0 %: "ting-adopt"
+      31       0 %: "meta-data"
+      31       0 %: "request-community-membership"
+      31       0 %: "talenet-idea-comment"
+      30       0 %: "audio-mp3"
+      30       0 %: "money"
+      29       0 %: "bookclubUpdate"
+      29       0 %: "ferment/update"
+      29       0 %: "hello"
+      29       0 %: "ting-inquiry"
+      27       0 %: "web-init"
+      26       0 %: "carson-foo"
+      26       0 %: "ferment/repost"
+      25       0 %: "PAVONINE_ACTION"
+      25       0 %: "meta-unknown"
+      24       0 %: "audio-ogg"
+      23       0 %: "talenet-idea-comment_reply"
+      22       0 %: "audio"
+      18       0 %: "peer-invite/confirm"
+      16       0 %: "acme-challenges-http-01"
+      16       0 %: "curation"
+      16       0 %: "label"
+      16       0 %: "location"
+      16       0 %: "pavonine_item"
+      16       0 %: "profile/person"
+      15       0 %: "add-community-application"
+      14       0 %: "music-release"
+      13       0 %: "webroot"
+      12       0 %: "baz"
+      12       0 %: "meta-image"
+      12       0 %: "never-publish-this"
+      11       0 %: "testtype"
+      10       0 %: "line-comment"
+      10       0 %: "mutual-credit"
+      10       0 %: "ting-edit"
+       1       0 %: "🐱🐱🐱"
 

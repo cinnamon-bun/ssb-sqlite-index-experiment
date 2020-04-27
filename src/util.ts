@@ -16,7 +16,7 @@ export let typeo = (x : any) : string => {
     return 'unknown-type';
 }
 export let getTypeo = (obj : object, key : string) : string => {
-    if (!isObject(obj)) { return 'not-object'; }
+    if (!isObject(obj)) { return 'parent-is-not-object'; }
     if (!obj.hasOwnProperty(key)) { return 'key-absent'; }
     return typeo((obj as any)[key]);
 }
