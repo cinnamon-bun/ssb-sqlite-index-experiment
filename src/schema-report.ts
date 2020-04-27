@@ -75,9 +75,11 @@ let main = async () => {
 
     let previousH = new Histogram('typeof value.previous');
     let authorH = new Histogram('typeof value.author');
+    let sequenceH = new Histogram('typeof value.sequence');
     let assertedTimestampH = new Histogram('typeof value.timestamp (asserted)');
-
     let hashH = new Histogram('value.hash');
+    let signatureH = new Histogram('typeof value.signature');
+
     let typeH = new Histogram('value.content.type');
 
     let ii = 0;
@@ -90,9 +92,11 @@ let main = async () => {
 
         previousH.add(getTypeo(msg.value, 'previous'));
         authorH.add(getTypeo(msg.value, 'author'));
+        sequenceH.add(getTypeo(msg.value, 'sequence'));
         assertedTimestampH.add(getTypeo(msg.value, 'timestamp'));
-
         hashH.add(JSON.stringify(msg.value?.hash));
+        signatureH.add(getTypeo(msg.value, 'signature'));
+
         typeH.add(JSON.stringify(msg.value?.content?.type));
 
         ii++;
@@ -104,9 +108,11 @@ let main = async () => {
 
     console.log(previousH.reportBy('num', 0));
     console.log(authorH.reportBy('num', 0));
+    console.log(sequenceH.reportBy('num', 0));
     console.log(assertedTimestampH.reportBy('num', 0));
-
     console.log(hashH.reportBy('num', 0));
-    console.log(typeH.reportBy('num', 0.1 / 100));
+    console.log(signatureH.reportBy('num', 0));
+
+    console.log(typeH.reportBy('num', 0.005 / 100));
 }
 main();

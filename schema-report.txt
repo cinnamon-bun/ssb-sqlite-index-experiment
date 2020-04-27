@@ -1,0 +1,93 @@
+== typeof key (by num) ==
+ 1168044  total
+ 1168044     100 %: string
+
+== typeof value (by num) ==
+ 1168044  total
+ 1168044     100 %: object
+
+== typeof timestamp (received) (by num) ==
+ 1168044  total
+ 1168044     100 %: number
+
+== typeof value.previous (by num) ==
+ 1168044  total
+ 1153638      99 %: string
+   14406       1 %: null
+
+== typeof value.author (by num) ==
+ 1168044  total
+ 1168044     100 %: string
+
+== typeof value.sequence (by num) ==
+ 1168044  total
+ 1168044     100 %: number
+
+== typeof value.timestamp (asserted) (by num) ==
+ 1168044  total
+ 1168044     100 %: number
+
+== value.hash (by num) ==
+ 1168044  total
+ 1168044     100 %: "sha256"
+
+== typeof value.signature (by num) ==
+ 1168044  total
+ 1168044     100 %: string
+
+== value.content.type (by num) ==
+ 1168044  total
+  360771      31 %: "vote"
+  230493      20 %: "post"
+  224639      19 %: "contact"
+  113932      10 %: undefined
+   66435       6 %: "channel"
+   50010       4 %: "operator"
+   40897       4 %: "about"
+   26007       2 %: "chess_move"
+   19299       2 %: "pub"
+    9535       1 %: "git-update"
+    6633       1 %: "tag"
+    2356       0 %: "scat_message"
+    1790       0 %: "talenet-identity-skill_assignment"
+    1561       0 %: "git-repo"
+    1234       0 %: "talenet-skill-similarity"
+     761       0 %: "chess_invite"
+     748       0 %: "gathering"
+     739       0 %: "item"
+     723       0 %: "npm-packages"
+     708       0 %: "talenet-skill-create"
+     609       0 %: "chess_invite_accept"
+     525       0 %: "issue"
+     496       0 %: "macaco_maluco-sombrio-wall"
+     459       0 %: "chess_game_end"
+     413       0 %: "position"
+     409       0 %: "talenet-idea-skill_assignment"
+     356       0 %: "foo"
+     332       0 %: "pull-request"
+     329       0 %: "blog"
+     247       0 %: "mutual/credit"
+     236       0 %: "ferment/like"
+     217       0 %: "talenet-idea-association"
+     170       0 %: "ssb_chess_move"
+     170       0 %: "libd"
+     149       0 %: "ssb-dns"
+     146       0 %: "carson"
+     136       0 %: "poll"
+     136       0 %: "collabthings-list"
+     130       0 %: "queue"
+     123       0 %: "talenet-idea-hat"
+     121       0 %: "bookclub"
+     117       0 %: "orbital"
+     106       0 %: "share"
+      99       0 %: "ferment/audio"
+      95       0 %: "test"
+      90       0 %: "tangle"
+      82       0 %: "web-root"
+      81       0 %: "post-edit"
+      80       0 %: "sk0rg"
+      73       0 %: "talenet-idea-update"
+      70       0 %: "meta-query"
+      66       0 %: "issue-edit"
+      62       0 %: "bar"
+
