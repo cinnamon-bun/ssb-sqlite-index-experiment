@@ -1,5 +1,26 @@
 import fs from 'fs';
 
+export let isObject = (x : any) : boolean =>
+    // another way to check for objects
+    //  return val != null && typeof val === 'object' && Array.isArray(val) === false;
+    (!!x) && x.constructor === Object;
+
+export let typeo = (x : any) : string => {
+    if (x === undefined) return 'undefined';
+    if (x === null) return 'null';
+    if (x === true || x === false) { return 'bool'; }
+    if (typeof x === 'string') { return 'string'; }
+    if (typeof x === 'number') { return 'number'; }
+    if (Array.isArray(x)) { return 'array'; }
+    if (isObject(x)) { return 'object'; }
+    return 'unknown-type';
+}
+export let getTypeo = (obj : object, key : string) : string => {
+    if (!isObject(obj)) { return 'not-object'; }
+    if (!obj.hasOwnProperty(key)) { return 'key-absent'; }
+    return typeo((obj as any)[key]);
+}
+
 export let sleep = async (ms : number) : Promise<void> => {
     return new Promise((resolve, reject) => {
         setTimeout(resolve, ms);

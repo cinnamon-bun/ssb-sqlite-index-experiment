@@ -8,4 +8,4 @@ coverage/
 ignore/
 db.sqlite
 db.sqlite-journal
-log.jsonl
+*.jsonl
